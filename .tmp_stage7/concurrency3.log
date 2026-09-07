@@ -1,0 +1,38 @@
+=== CONCURRENCY SWEEP (.bat parallel, clean codes) ===
+C=4 codes=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information] ok=0 429=0 other=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information]
+C=5 codes=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information] ok=0 429=0 other=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information]
+C=8 codes=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information] ok=0 429=0 other=[curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information,curl: (2) no URL specified
+curl: try 'curl --help' for more information]

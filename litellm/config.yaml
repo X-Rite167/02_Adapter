@@ -1,0 +1,32 @@
+# LiteLLM 接入 Confidential MaaS Adapter 的模型配置片段（2026-09-04 已端到端验证通过）
+# 使用方式：合并进现有 config.yaml 的 model_list（ConfigMap 管理，修改后滚动重启）
+# 注意：
+#   1. Adapter 必须先部署到集群（confidential-adapter Service 存在），否则调用会连接失败。
+#   2. 公司实际维护方式为 admin UI（DB，custom_openai provider），本文件为 GitOps/版本化等价参考。
+#   3. admin UI 已验证的等价项：provider=Custom OpenAI(custom_openai)、model 不带 openai/ 前缀、api_key 非空占位。
+
+model_list:
+  - model_name: deepseek-v4-confidential        # 业务侧只认这个逻辑名
+    litellm_params:
+      model: cmaas-deepseek-v4-flash-0731       # Adapter 后端模型 code（custom_openai 不带 openai/ 前缀）
+      custom_llm_provider: custom_openai         # 与 admin UI「Custom OpenAI」一致
+      api_base: http://confidential-adapter.litellm.svc.cluster.local:8080/v1
+      # 鉴权说明：
+      #   形态 A（纯官方代理）：api_key 必须**非空**（LiteLLM 客户端要求，官方代理不校验），如 "os.environ/CMAAS_ADAPTER_KEY" 或任意占位
+      #   形态 B（薄桥）：必须与 Adapter 侧 ADAPTER_API_KEY 一致（新旧双 key 重叠轮转）
+      api_key: os.environ/CMAAS_ADAPTER_KEY
+      timeout: 300                                # 推理耗时长，超时给足
+      max_retries: 0                              # 硬性要求：防重复计费，任何错误都不自动重试
+      cache: false                                # 明文不进 LiteLLM 缓存（字段以现场版本为准）
+
+  # 普通路径示例（不同逻辑名，由调用方显式选择）：
+  # - model_name: deepseek-v4-standard
+  #   litellm_params:
+  #     model: openai/deepseek-chat
+  #     api_base: https://<普通上游>/v1
+  #     api_key: os.environ/<普通上游_KEY>
+
+# 重要约定（fail-closed）：
+# 1. 不得为 confidential 模型配置 fallback / model group fallback / 隐式别名切换到非 TEE 模型。
+# 2. 业务侧不可见 WorkspaceId、后端 code、Adapter key、DashScope key。
+# 3. LiteLLM 侧需核查并关闭：prompt/completion 日志、request body 记录、回调、trace、缓存。

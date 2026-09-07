@@ -1,0 +1,15 @@
+# K8s LiteLLM 当前阶段配置：指向虚拟机 Docker Adapter（Docker 调通目标）
+# 2026-09-04 已端到端验证通过（经 Cloudflare Quick Tunnel 公网暴露）。
+# 使用：把 api_base 更新到 K8s LiteLLM 的 ConfigMap（model_list 条目），滚动重启。
+# 前提：K8s Pod 网络能访问 192.168.200.128:18080（本机内网已验证可达；
+#       若集群网络不通，等 Adapter 部署进 K8s 后改用 ClusterIP 域名，见 litellm/config.yaml）
+model_list:
+  - model_name: deepseek-v4-confidential
+    litellm_params:
+      model: cmaas-deepseek-v4-flash-0731       # custom_openai 不带 openai/ 前缀
+      custom_llm_provider: custom_openai
+      api_base: http://192.168.200.128:18080/v1     # 虚拟机 Docker Adapter
+      api_key: os.environ/CMAAS_ADAPTER_KEY     # 必须非空占位（官方代理不校验，但 LiteLLM 客户端要求）
+      timeout: 300
+      max_retries: 0
+      cache: false

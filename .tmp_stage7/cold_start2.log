@@ -1,0 +1,7 @@
+﻿STEP1 stop container
+port_closed_after_stop=True
+STEP2 confirm port closed, then start + time to ready
+start_cmd_duration=0.819s
+ready_since_start_call=0.843s
+ready_since_start_cmd_return=0.024s
+final_code=200

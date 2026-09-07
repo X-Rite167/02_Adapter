@@ -1,0 +1,10 @@
+﻿total 140
+drwxr-xr-x    3 cmaas    cmaas          103 Sep  4 01:00 .
+drwxr-xr-x    3 root     root            21 Sep  3 09:20 ..
+drwx------    2 cmaas    cmaas         4096 Sep  4 01:48 attestation-materials
+-rw-------    1 cmaas    cmaas         7378 Sep  3 09:56 reports-2026-09-03-1.jsonl
+-rw-------    1 cmaas    cmaas        72920 Sep  4 01:56 reports-2026-09-04-1.jsonl
+---
+        9 /var/lib/cmaas/reports/reports-2026-09-03-1.jsonl
+       89 /var/lib/cmaas/reports/reports-2026-09-04-1.jsonl
+       98 total

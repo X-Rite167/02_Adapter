@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: confidential-adapter-config
+  namespace: litellm
+data:
+  CMAAS_ENDPOINT: "https://<WORKSPACE_ID>.cn-beijing.maas.aliyuncs.com/api/v1/services"
+  CMAAS_MODEL: "cmaas-deepseek-v4-flash-0731"
+  LOG_PROMPTS: "false"
+  LOG_RESPONSES: "false"

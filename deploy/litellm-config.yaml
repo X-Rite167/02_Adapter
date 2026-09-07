@@ -1,0 +1,10 @@
+# 虚拟机 Docker 环境下 LiteLLM 配置（api_base 用 compose 服务名）
+model_list:
+  - model_name: deepseek-v4-confidential
+    litellm_params:
+      model: openai/cmaas-deepseek-v4-flash-0731
+      api_base: http://confidential-adapter:8080/v1
+      api_key: os.environ/CMAAS_ADAPTER_KEY
+      timeout: 300
+      max_retries: 0
+      cache: false

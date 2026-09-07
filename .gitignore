@@ -1,0 +1,8 @@
+# 凭据与本地参数：禁止入库
+.env
+
+# POC 运行时产物
+.poc/
+
+# 验收证据（按策略决定是否入库）
+artifacts/acceptance/

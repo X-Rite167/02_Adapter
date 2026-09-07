@@ -1,0 +1,14 @@
+# 正式 Service（阶段 4 交付物）：仅 ClusterIP，不暴露 LoadBalancer/NodePort/Ingress
+apiVersion: v1
+kind: Service
+metadata:
+  name: confidential-adapter
+  namespace: litellm
+spec:
+  type: ClusterIP
+  selector:
+    app: confidential-adapter
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

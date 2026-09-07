@@ -1,0 +1,113 @@
+﻿powershell : 无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 行:1 字符: 1
++ powershell -NoProfile -ExecutionPolicy Bypass -File "E:\02_Adapter\.t ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (无法将值“test”转换为类型...:“输入字符串的格式不正确。” 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“test”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“many”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“many”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“many”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+无法将值“many”转换为类型“System.Double”。错误:“输入字符串的格式不正确。”
+所在位置 E:\02_Adapter\.tmp_stage7\run.ps1:50 字符: 48
++ ...   $codes += $p2[0]; if ($p2.Count -ge 2) { $times += [double]$p2[1] }
++                                                ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvalidCastFromStringToDoubleOrSingle
+ 
+done

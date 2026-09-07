@@ -1,0 +1,11 @@
+{
+    "messages":  [
+                     {
+                         "content":  "Reply with one word: ok",
+                         "role":  "user"
+                     }
+                 ],
+    "stream":  false,
+    "model":  "cmaas-deepseek-v4-flash-0731",
+    "max_tokens":  8
+}

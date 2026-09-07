@@ -1,0 +1,9 @@
+=== CONCURRENCY SWEEP (clean, via Start-Job) ===
+C=1 codes=[200] ok=1 429=0 other=[]
+C=2 codes=[200,200] ok=2 429=0 other=[]
+C=3 codes=[200,200,200] ok=3 429=0 other=[]
+C=4 codes=[200,200,200,200] ok=4 429=0 other=[]
+C=5 codes=[200,200,200,200,200] ok=5 429=0 other=[]
+C=6 codes=[200,200,200,200,200,200] ok=6 429=0 other=[]
+C=8 codes=[200,200,200,200,200,200,200,200] ok=8 429=0 other=[]
+C=10 codes=[200,200,200,200,200,200,200,200,200,200] ok=10 429=0 other=[]

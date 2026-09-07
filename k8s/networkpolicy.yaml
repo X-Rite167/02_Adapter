@@ -1,0 +1,60 @@
+# 正式部署（阶段 7.2 交付物）：default-deny + Adapter 最小访问面
+# 模板说明：CNI/FQDN policy 能力需按 POC-3 实测选择（Cilium/Calico FQDN policy 或 egress gateway）。
+# 本文件为标准 NetworkPolicy 部分：ingress 白名单 + 显式 egress 端口收敛（FQDN 策略另附）。
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: confidential-adapter-policy
+  namespace: litellm
+spec:
+  podSelector:
+    matchLabels:
+      app: confidential-adapter
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # LiteLLM（同 namespace 内 app=litellm）访问 8080
+    - from:
+        - podSelector:
+            matchLabels:
+              app: litellm
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    # DNS（按集群实际 CoreDNS/NodeLocalDNSCache 调整）
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # CMAAS 与证明/透明日志依赖：此处仅收敛到 443；
+    # FQDN 白名单需按 POC-3 选择的 CNI 能力附加，禁止长期 0.0.0.0/0 出站。
+    #
+    # 2026-09-03 虚拟机 Docker 实测冻结的运行时/审计 egress FQDN（tag v0.3.1）：
+    #   推理（openai-proxy live 请求）：
+    #     ws-la2jmsuqq2d1zfv2.cn-beijing.maas.aliyuncs.com:443
+    #       -> 101.201.58.201（阿里云 NLB）
+    #   审计（cmaas-audit attestation verify）：
+    #     sgx-dcap-server.cn-hangzhou.aliyuncs.com:443（PCK CRL / TDX collateral 默认 PCCS）
+    #       -> 101.37.132.1（另 47.111.202.72）
+    #   审计（cmaas-audit transparency-log list）：
+    #     rekor.sigstore.dev:443 -> 34.36.47.134
+    #   二进制内另见 wapi.trustedservices.intel.com（Intel QE 备用，本次未建立连接）
+    # 注意：推理路径只连 CMAAS:443，不连 Rekor/PCCS；Rekor/PCCS 仅审计路径需要。
+    - ports:
+        - protocol: TCP
+          port: 443
+---
+# namespace 级 default-deny（部署前核对集群现状，避免误伤现有流量）
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress-egress
+  namespace: litellm
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress

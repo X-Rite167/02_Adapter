@@ -1,0 +1,22 @@
+﻿deploy-confidential-adapter-1 Up 17 minutes
+mongodb Up About an hour
+litellm Up About an hour (healthy)
+litellm-db Up About an hour (healthy)
+docker-api-1 Up About an hour (healthy)
+docker-worker-1 Up About an hour
+docker-agent_backend-1 Up About an hour
+docker-api_websocket-1 Up About an hour
+docker-worker_beat-1 Up About an hour
+docker-plugin_daemon-1 Up About an hour
+docker-db_postgres-1 Up About an hour (healthy)
+docker-weaviate-1 Up About an hour
+docker-redis-1 Up About an hour (healthy)
+docker-web-1 Up About an hour
+docker-sandbox-1 Restarting (2) Less than a second ago
+docker-local_sandbox-1 Up About an hour (healthy)
+mysql-server Up About an hour
+attu Up About an hour
+milvus-standalone Up About an hour (healthy)
+centos-neo4j-1 Up About an hour
+milvus-etcd Up About an hour (healthy)
+milvus-minio Up About an hour (healthy)

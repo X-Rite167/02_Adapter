@@ -1,0 +1,1 @@
+@curl.exe -s -o "E:\02_Adapter\.tmp_stage7\b_4_1.resp.json" -w "%{http_code}" -X POST "http://192.168.200.128:18080/v1/chat/completions" -H "Content-Type: application/json" --data-binary "@E:\02_Adapter\.tmp_stage7\b_4_1.json" > "E:\02_Adapter\.tmp_stage7\b_4_1.code.txt" 2>&1

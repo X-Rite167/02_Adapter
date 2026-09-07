@@ -1,0 +1,41 @@
+# 公司 LiteLLM 合并片段（阶段 5，形态 A）
+#
+# 用途：把下面这个 model_list 条目**合并进公司 LiteLLM 现有 config.yaml 的 model_list**，
+#       即可让业务侧用逻辑名 `deepseek-v4-confidential` 路由到 CMAAS Adapter。
+#       本片段只含模型映射，不含 router/litellm_settings 全局项——合并时不要覆盖公司现有全局配置。
+#
+# 注意：
+#   1. api_base 二选一，取决于 Adapter 当前部署在哪（见下方 A/B 注释），只保留一行。
+#   2. 字段兼容性以公司 LiteLLM 现场版本 schema 为准（见 docs/stage5-litellm-integration.md 第 3 节）。
+#   3. 合并后必须滚动重启 LiteLLM，再用 /v1/models 确认出现 deepseek-v4-confidential。
+
+model_list:
+  - model_name: deepseek-v4-confidential           # 业务侧只认这个逻辑名
+    litellm_params:
+      model: openai/cmaas-deepseek-v4-flash-0731   # Adapter 后端模型 code（固定，不接受动态切换）
+
+      # --- api_base 二选一，只保留一行 ---
+      # A. Docker-first：公司 LiteLLM 直连虚拟机 Docker Adapter（前提：网络可达 + VM 在线）
+      api_base: http://192.168.200.128:18080/v1
+      # B. 集群内：Adapter 已部署到 K8s 后的 ClusterIP（阶段 4 完成后切换）
+      # api_base: http://confidential-adapter.litellm.svc.cluster.local:8080/v1
+
+      # 形态 A（纯官方 openai-proxy）不校验 Authorization，给非空占位即可；
+      # 形态 B（薄桥）时该值必须与 Adapter 侧 ADAPTER_API_KEY 一致（双 key 重叠轮转）。
+      api_key: os.environ/CMAAS_ADAPTER_KEY
+
+      # 硬性约束：防重复计费 + 明文不进缓存
+      timeout: 300                                  # 推理耗时长，超时给足
+      max_retries: 0                                # 任何错误都不自动重试
+      num_retries: 0                                # 老版本字段，一并置 0（新版本忽略）
+      cache: false                                  # 明文不落 LiteLLM 缓存
+
+      # 禁止项（不要在本条目添加）：
+      #   - 不配置 model_list 级 fallbacks / model_group_alias / 隐式别名
+      #   - 不配置 /chat/completions 的失败自动切换到非 TEE 模型
+      #   - 不把 WorkspaceId、后端 code、DashScope key 暴露给调用方
+
+# ---- 建议在 litellm_settings 全局追加（不覆盖公司已有项）----
+# litellm_settings:
+#   num_retries: 0        # 全局兜底：关闭生成请求自动重试（如公司全局有值，先确认）
+#   # 确认未开启任何 prompt/completion 日志、request body 记录、callback、trace、缓存

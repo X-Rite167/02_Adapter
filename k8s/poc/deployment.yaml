@@ -1,0 +1,77 @@
+# POC 测试部署（阶段 0 集群验证用；正式部署见总文档阶段 3/4）
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: confidential-adapter
+  namespace: litellm
+  labels:
+    app: confidential-adapter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: confidential-adapter
+  template:
+    metadata:
+      labels:
+        app: confidential-adapter
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: adapter
+          # 占位：替换为实际镜像（见 k8s/poc/README.md 构建步骤）
+          image: <IMAGE_REGISTRY>/confidential-adapter:0.1.0-poc
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          args:
+            # 占位：<WORKSPACE_ID> 从 .env 取值替换
+            - --endpoint=https://<WORKSPACE_ID>.cn-beijing.maas.aliyuncs.com/api/v1/services
+            - --model=cmaas-deepseek-v4-flash-0731
+            - --listen=0.0.0.0:8080
+            - --workers=2
+            - --max-concurrency=4
+            - --transparency-report-dir=/var/lib/cmaas/reports
+            - --no-prompt-in-transparency-report
+          env:
+            - name: DASHSCOPE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: confidential-adapter-secret
+                  key: DASHSCOPE_API_KEY
+            - name: CMAAS_ALLOW_ATTESTATION_FALLBACK
+              value: "false"
+            - name: CMAAS_DEBUG
+              value: "false"
+          volumeMounts:
+            - name: reports
+              mountPath: /var/lib/cmaas/reports
+          readinessProbe:
+            httpGet:
+              path: /v1/models
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /v1/models
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+      volumes:
+        - name: reports
+          emptyDir: {}   # POC 阶段临时卷；正式阶段 3 改为 StatefulSet + 加密 PVC

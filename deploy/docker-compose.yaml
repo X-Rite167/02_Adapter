@@ -1,0 +1,31 @@
+# 虚拟机 Docker 链路验证（阶段 0）：仅 Adapter
+# 说明：LiteLLM 已在 K8s（kite 平台）构建好，不在此部署；
+#       K8s LiteLLM 后续指向 http://<本虚拟机IP>:18080/v1（需网络可达）。
+# 使用：docker compose --env-file ../.env up --build -d
+
+services:
+  confidential-adapter:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: confidential-adapter:0.1.0-poc
+    environment:
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+      CMAAS_ALLOW_ATTESTATION_FALLBACK: "false"
+      CMAAS_DEBUG: "false"
+    command:
+      - --endpoint=${CMAAS_ENDPOINT:-https://${WORKSPACE_ID}.cn-beijing.maas.aliyuncs.com/api/v1/services}
+      - --model=${CMAAS_MODEL}
+      - --listen=0.0.0.0:8080
+      - --workers=2
+      - --max-concurrency=4          # 阶段 2 要求：禁止无界并发（0=无限制）
+      - --transparency-report-dir=/var/lib/cmaas/reports
+      - --no-prompt-in-transparency-report
+    volumes:
+      - cmaas-reports:/var/lib/cmaas/reports
+    ports:
+      - "18080:8080"        # 宿主机/内网访问入口（供 K8s LiteLLM 指向或本机 curl）
+    restart: unless-stopped
+
+volumes:
+  cmaas-reports:

@@ -1,0 +1,9 @@
+﻿C=1 codes=[200] ok=1 429=0 other=[] wall=0.624s lat_avg=0.616s lat_max=0.616s
+C=2 codes=[200, 200] ok=2 429=0 other=[] wall=0.465s lat_avg=0.441s lat_max=0.464s
+C=4 codes=[200, 200, 200, 200] ok=4 429=0 other=[] wall=0.583s lat_avg=0.520s lat_max=0.582s
+C=5 codes=[200, 200, 200, 200, 429] ok=4 429=1 other=[] wall=0.606s lat_avg=0.418s lat_max=0.604s
+  429_body: {"error":{"message":"Too many concurrent requests","type":"rate_limit_error","param":null,"code":"rate_limit_exceeded"},"id":"chatcmpl-adedd13b-f2df-4659-9026-01c0dad6d6e4","request_id":"adedd13b-f2df
+C=8 codes=[429, 200, 429, 200, 429, 429, 200, 200] ok=4 429=4 other=[] wall=0.604s lat_avg=0.271s lat_max=0.602s
+  429_body: {"error":{"message":"Too many concurrent requests","type":"rate_limit_error","param":null,"code":"rate_limit_exceeded"},"id":"chatcmpl-695ea483-597a-40c1-979d-f7f16b1a9f4b","request_id":"695ea483-597a
+C=10 codes=[200, 200, 200, 200, 429, 429, 429, 429, 429, 429] ok=4 429=6 other=[] wall=0.577s lat_avg=0.230s lat_max=0.576s
+  429_body: {"error":{"message":"Too many concurrent requests","type":"rate_limit_error","param":null,"code":"rate_limit_exceeded"},"id":"chatcmpl-b8bfa2ab-20db-482f-aaf2-08dcf5a1b871","request_id":"b8bfa2ab-20db

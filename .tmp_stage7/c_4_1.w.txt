@@ -1,0 +1,2 @@
+000{"id":"chatcmpl-302e923d-83f7-91b3-8e90-18768facedbb","object":"chat.completion","created":1788486535,"model":"cmaas-deepseek-v4-flash-0731","choices":[{"index":0,"message":{"role":"assistant","content":"Capacity test confirmed."},"finish_reason":"stop","logprobs":null}],"usage":{"prompt_tokens":12,"completion_tokens":5,"total_tokens":17,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+200000

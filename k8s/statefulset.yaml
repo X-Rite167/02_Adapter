@@ -1,0 +1,106 @@
+# 正式部署（阶段 3/4 交付物）：一模型一 StatefulSet，透明度报告独立加密 PVC
+# 注意：本文件为模板；正式部署须在阶段 0 通过后按阶段 3/4 门禁执行。
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: confidential-adapter
+  namespace: litellm
+  labels:
+    app: confidential-adapter
+spec:
+  serviceName: confidential-adapter
+  replicas: 1                      # 压测验证无状态行为后再评估扩容；密钥协商计入 RPM
+  selector:
+    matchLabels:
+      app: confidential-adapter
+  updateStrategy:
+    type: RollingUpdate             # 排空能力须经 POC-5 实测，不宣称长流一定完成
+  template:
+    metadata:
+      labels:
+        app: confidential-adapter
+      annotations:
+        # 配置变更通过 checksum annotation 触发受控 rollout
+        configmap/checksum: "<由 CI 注入>"
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: adapter
+          image: <IMAGE_REGISTRY>/confidential-adapter:<DIGEST>
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          args:
+            - --endpoint=$(CMAAS_ENDPOINT)
+            - --model=$(CMAAS_MODEL)
+            - --listen=0.0.0.0:8080
+            - --workers=2
+            - --max-concurrency=4
+            - --transparency-report-dir=/var/lib/cmaas/reports
+            - --no-prompt-in-transparency-report
+          env:
+            - name: DASHSCOPE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: confidential-adapter-secret
+                  key: DASHSCOPE_API_KEY
+            - name: CMAAS_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: confidential-adapter-config
+                  key: CMAAS_ENDPOINT
+            - name: CMAAS_MODEL
+              valueFrom:
+                configMapKeyRef:
+                  name: confidential-adapter-config
+                  key: CMAAS_MODEL
+            - name: CMAAS_ALLOW_ATTESTATION_FALLBACK
+              value: "false"          # 禁止开启；准入策略需锁定
+            - name: CMAAS_DEBUG
+              value: "false"          # 禁止开启；开启会写明文
+          volumeMounts:
+            - name: reports
+              mountPath: /var/lib/cmaas/reports
+          startupProbe:
+            httpGet:
+              path: /v1/models
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /v1/models
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /v1/models
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+      terminationGracePeriodSeconds: 120   # 仅配合实测的排空机制，不作为承诺
+  volumeClaimTemplates:
+    - metadata:
+        name: reports
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: <STORAGE_CLASS>   # 加密存储类（阶段 3 门禁）
+        resources:
+          requests:
+            storage: 10Gi
